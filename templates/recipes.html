@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Book</title>
+</head>
+<body>
+    {% for recipe in recipes %}
+        {{ recipe.recipe_name }}<br>
+        {{ recipe.meal_type }}<br>
+        {{ recipe.ingredients }}<br>
+        {{ recipe.required_tools }}<br>
+        {{ recipe.preparation_steps }}<br>
+        {{ recipe.cuisine }}<br>
+    {% endfor %}
+</body>
+</html>
