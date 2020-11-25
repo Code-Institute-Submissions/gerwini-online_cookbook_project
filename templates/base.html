@@ -16,7 +16,7 @@
     <header>
         <nav class="nav-extended text-shadow orange lighten-1">
             <div class="nav-wrapper">
-                <a href="{{ url_for('get_recipes') }}" class="brand-logo">Recipes</a>
+                <a href="{{ url_for('get_recipes') }}" class="brand-logo">Online Cook Book</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('get_recipes') }}">Home</a></li>
@@ -25,7 +25,7 @@
                     <li><a href="">Search</a></li>
                     <li><a href="">Log Out</a></li>
                     <li><a href="">Log In</a></li>
-                    <li><a href="">Register</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
                 </ul>
             </div>
         </nav>
@@ -37,7 +37,7 @@
             <li><a href="">Search</a></li>
             <li><a href="">Log Out</a></li>
             <li><a href="">Log In</a></li>
-            <li><a href="">Register</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
         </ul>
     </header>
 
