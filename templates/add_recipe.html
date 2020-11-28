@@ -5,18 +5,44 @@
 
     <div class="row">
         <form class="col s12" method="POST" action="">
+            <!-- Recipe name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="prefix"></i>
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">First Name</label>
-                </div>
-                <div class="input-field col s12">
-                    <i class="prefix"></i>
-                    <input id="icon_telephone" type="tel" class="validate">
-                    <label for="icon_telephone">Telephone</label>
+                    <i class="fas fa-pencil-alt prefix"></i>
+                    <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
+                    <label for="recipe_name">Recipe Name</label>
                 </div>
             </div>
+            <!-- Cuisine -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-cheese prefix"></i>
+                    <input id="cuisine" name="cuisine" type="text" class="validate" required>
+                    <label for="cuisine">Type of cuisine</label>
+                </div>
+            </div>
+            <!-- Ingredients -->
+            <div class="row">
+                <div class="input field col s12">
+                    <i class="fas fa-list-ul prefix"> Ingredients</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input field col s10 offset-s2">
+                    <a class="btn-floating btn-small waves-effect waves-light red">+</a>
+                    <input id="ingredients" type="text" name="ingredients" class="validate">
+                    <label for="ingredients">Ingredients</label>
+                </div>
+            </div>
+            <!-- Required tools -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-tools prefix"></i>
+                    <input id="required_tools" name="required_tools" type="text" class="validate" required>
+                    <label for="required_tools">Tools required</label>
+                </div>
+            </div>
+            <!-- Preparation steps -->
         </form>
     </div>
 
