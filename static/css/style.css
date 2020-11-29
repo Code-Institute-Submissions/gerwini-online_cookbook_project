@@ -5,3 +5,12 @@
 .flashes h4 {
     line-height: 2;
 }
+
+.ingredient {
+    margin-left: 20px;
+}
+
+.add-button {
+    margin-top: 20px;
+    margin-left: 95px;
+}

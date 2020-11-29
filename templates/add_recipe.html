@@ -21,18 +21,32 @@
                     <label for="cuisine">Type of cuisine</label>
                 </div>
             </div>
-            <!-- Ingredients -->
+            <!-- Ingredients  <a class="btn-floating btn-small waves-effect waves-light red">+</a> -->
             <div class="row">
-                <div class="input field col s12">
-                    <i class="fas fa-list-ul prefix"> Ingredients</i>
+                <div class="input-field col s12">
+                    <i class="fas fa-list-ul prefix"><span class="ingredient">Ingredients</span></i>
                 </div>
             </div>
             <div class="row">
-                <div class="input field col s10 offset-s2">
+                <!-- <div class="col s2">
                     <a class="btn-floating btn-small waves-effect waves-light red">+</a>
-                    <input id="ingredients" type="text" name="ingredients" class="validate">
-                    <label for="ingredients">Ingredients</label>
                 </div>
+                <div class="input-field col s10">
+                    <input id="ingredients" type="text" name="ingredients" class="validate">
+                    <label for="ingredients">Ingredient</label>
+                </div> -->
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            <a class="btn-floating btn-small waves-effect waves-light red">+</a>
+                            <a class="btn-floating btn-small waves-effect waves-light red">-</a>
+                        </td>
+                        <td class="input-field">
+                            <input id="ingredients" type="text" name="ingredients" class="validate">
+                            <label for="ingredients">Ingredient</label>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <!-- Required tools -->
             <div class="row">
