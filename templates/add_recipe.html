@@ -6,7 +6,7 @@
     <div class="row">
         <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
             <!-- Meal Type -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-folder-open prefix"></i>
                     <select id="meal_name" name="meal_name" class="validate" required>
@@ -17,7 +17,7 @@
                     </select>
                     <label for="meal_name" >Materialize Select</label>
                 </div>
-            </div>
+            </div> -->
             <!-- Recipe name -->
             <div class="row">
                 <div class="input-field col s12">
@@ -34,33 +34,27 @@
                     <label for="cuisine">Type of cuisine</label>
                 </div>
             </div>
-            <!-- Ingredients  <a class="btn-floating btn-small waves-effect waves-light red">+</a> -->
+            <!-- Ingredients -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-list-ul prefix"><span class="ingredient">Ingredients</span></i>
                 </div>
             </div>
-            <div class="row">
-                <!-- <div class="col s2">
+            <div class="container1">
+                <a class="add_form_field btn-floating btn-small waves-effect waves-light red">+</a>
+                <div class="input-field">
+                    <input type="text" name="ingredients">
+                    <label for="ingredients">Ingredient</label>
+                </div>
+            </div>
+            <!-- <div class="col s2">
                     <a class="btn-floating btn-small waves-effect waves-light red">+</a>
                 </div>
                 <div class="input-field col s10">
                     <input id="ingredients" type="text" name="ingredients" class="validate">
                     <label for="ingredients">Ingredient</label>
                 </div> -->
-                <table style="width:100%">
-                    <tr>
-                        <td>
-                            <a class="btn-floating btn-small waves-effect waves-light red">+</a>
-                            <a class="btn-floating btn-small waves-effect waves-light red">-</a>
-                        </td>
-                        <td class="input-field">
-                            <input class="ingredients validate" type="text" name="ingredients">
-                            <label for="ingredients">Ingredient</label>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+
             <!-- Required tools -->
             <div class="row">
                 <div class="input-field col s12">

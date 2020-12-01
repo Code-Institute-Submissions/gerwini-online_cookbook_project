@@ -105,8 +105,8 @@ def add_recipe():
             "cuisine": request.form.get("cuisine"),
         }
         mongo.db.recipes.insert_one()
-        meal_type = mongo.db.meal_type.find().sort("meal_name", 1)
-    return render_template("add_recipe.html", meal_type=meal_type)
+        # meal_type = mongo.db.meal_type.find().sort("meal_name", 1)
+    return render_template("add_recipe.html")
 
 
 if __name__ == "__main__":
