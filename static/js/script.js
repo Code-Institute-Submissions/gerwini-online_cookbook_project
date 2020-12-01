@@ -11,11 +11,23 @@ $(document).ready(function() {
 
     var x = 1;
     $(add_button).click(function(e) {
-        console.log('clicked');
+        // let input = `
+        //     <div class="input-field row">
+        //         <a href="#" class="delete col s2">Delete</a>
+        //         <input class="col s10" type="text" name="ingredients">
+        //         <label for="ingredients">Ingredient</label>
+        //     </div>`
+
+        let input = `
+                <div class="input-field">
+                    <input type="text" name="ingredients">
+                    <label for="ingredients">Ingredient</label>
+                </div>
+                <a href="#" class="delete">Delete</a>`
         e.preventDefault();
         if (x < max_fields) {
             x++;
-            $(wrapper).append('<div class="input-field row"><a href="#" class="delete col s2">Delete</a><input class="col s10" type="text" name="ingredients"><label for="ingredients">Ingredient</label></div>');
+            $(wrapper).append(input);
         } else {
             alert('You Reached the limits')
         }
