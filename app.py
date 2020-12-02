@@ -100,13 +100,20 @@ def logout():
 def add_recipe():
     if request.method == "POST":
         recipe = {
-            "recipe_name": request.form.get("recipe_name"),
             "meal_type": request.form.get("meal_type"),
+            "recipe_name": request.form.get("recipe_name"),
             "cuisine": request.form.get("cuisine"),
+            "ingredients": request.form.getlist("ingredients"),
+            "required_tools": request.form.get("required_tools"),
+            "preparation_steps": request.form.get("preparation_steps"),
+            "created_by": session["user"]
         }
-        mongo.db.recipes.insert_one()
-        # meal_type = mongo.db.meal_type.find().sort("meal_name", 1)
-    return render_template("add_recipe.html")
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe successfully Added")
+        return redirect(url_for("get_recipes"))
+
+    meals = mongo.db.meals.find().sort("meal_type", 1)
+    return render_template("add_recipe.html", meals=meals)
 
 
 if __name__ == "__main__":

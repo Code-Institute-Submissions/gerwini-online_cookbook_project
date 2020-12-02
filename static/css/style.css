@@ -14,3 +14,12 @@
     margin-top: 20px;
     margin-left: 95px;
 }
+
+.btn-small {
+    margin: 5px;
+}
+
+.collapsible-header .col strong {
+    margin: 5px;
+    line-height: 42px;
+}

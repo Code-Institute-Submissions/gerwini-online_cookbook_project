@@ -5,14 +5,20 @@
         {% for recipe in recipes %}
         <li>
             <div class="collapsible-header">
-                <i class="fas fa-caret-down"></i>
-                <strong>{{ recipe.recipe_name }}</strong> :  {{ recipe.meal_type }}
+                <div class="col s3">
+                    <i class="fas fa-caret-down"></i>
+                    <a href="" class="btn-small orange accent-4">Edit</a>
+                </div>
+                <div class="col s9">
+                    <strong>{{ recipe.recipe_name }}</strong> :  {{ recipe.meal_type }}
+                </div>
             </div>
             <div class="collapsible-body">
-                <strong>{{ recipe.cuisine }}</strong>
-                <p>{{ recipe.ingredients }}</p>
-                <p>{{ recipe.required_tools }}</p>
-                <p>{{ recipe.preparation_steps }}</p>
+                <strong>Type of cuisine: </strong>{{ recipe.cuisine }}
+                <p><strong>Ingredients: </strong>{{ recipe.ingredients }}</p>
+                <p><strong>Required Tools: </strong>{{ recipe.required_tools }}</p>
+                <p><strong>Preparation steps: </strong>{{ recipe.preparation_steps }}</p>
+                <p><em>by: {{ recipe.created_by }}</em></p>
             </div>
         </li>
         {% endfor %}
