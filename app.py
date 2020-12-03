@@ -118,10 +118,29 @@ def add_recipe():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if request.method == "POST":
+        submit = {
+            "meal_type": request.form.get("meal_type"),
+            "recipe_name": request.form.get("recipe_name"),
+            "cuisine": request.form.get("cuisine"),
+            "ingredients": request.form.getlist("ingredients"),
+            "required_tools": request.form.get("required_tools"),
+            "preparation_steps": request.form.get("preparation_steps"),
+            "created_by": session["user"]
+        }
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
+        flash("Recipe successfully Updated")
 
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     meals = mongo.db.meals.find().sort("meal_type", 1)
     return render_template("edit_recipe.html", recipe=recipe, meals=meals)
+
+
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    flash("Recipe Successfully Deleted")
+    return redirect(url_for("get_recipes"))
 
 
 if __name__ == "__main__":

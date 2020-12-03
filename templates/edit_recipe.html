@@ -10,9 +10,13 @@
                 <div class="input-field col s12">
                     <i class="fas fa-folder-open prefix"></i>
                     <select id="meal_type" name="meal_type" class="validate" required>
-                        <option value="" disabled selected>Meal Type</option>
+                        <option value="" disabled>Meal Type</option>
                         {% for meal in meals %}
+                            {% if meal.meal_type == recipe.meal_type %}
+                                <option value="{{ meal.meal_type }}" selected>{{ meal.meal_type }}</option>
+                            {% else %}
                             <option value="{{ meal.meal_type }}">{{ meal.meal_type }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label for="meal_type" >Meal Type</label>
@@ -22,7 +26,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
-                    <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
+                    <input id="recipe_name" name="recipe_name" type="text" 
+                        class="validate" required value="{{ recipe.recipe_name }}">
                     <label for="recipe_name">Recipe Name</label>
                 </div>
             </div>
@@ -30,7 +35,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-cheese prefix"></i>
-                    <input id="cuisine" name="cuisine" type="text" class="validate" required>
+                    <input id="cuisine" name="cuisine" type="text"
+                        class="validate" value="{{ recipe.cuisine }}" required>
                     <label for="cuisine">Type of cuisine</label>
                 </div>
             </div>
@@ -43,7 +49,7 @@
             <div class="ingredient_list">
                 <a class="add_ingredient btn-floating btn-small waves-effect waves-light red">+</a>
                 <div class="input-field">
-                    <input type="text" name="ingredients">
+                    <input type="text" name="ingredients" value="{{ recipe.ingredients }}">
                     <label for="ingredients">Ingredient</label>
                 </div>
             </div>
@@ -51,7 +57,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-tools prefix"></i>
-                    <input id="required_tools" name="required_tools" type="text" class="validate" required>
+                    <input id="required_tools" name="required_tools" type="text" 
+                        class="validate" required value="{{ recipe.required_tools }}">
                     <label for="required_tools">Tools required</label>
                 </div>
             </div>
@@ -59,13 +66,19 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-list-ol"></i>
-                    <textarea id="preparation_steps" name="preparation_steps" class="materialize-textarea"></textarea>
+                    <textarea id="preparation_steps" name="preparation_steps" class="materialize-textarea">
+                    {{- recipe.preparation_steps -}}
+                    </textarea>
                     <label for="preparation_steps">Preparation Steps</label>
                 </div>
             </div>
             <!-- Submit Button -->
             <div class="row">
                 <div class="col s12 center-align">
+                    <!--Cancel Button -->
+                    <a href="{{ url_for('get_recipes') }}" class="btn-large red text-shadow">
+                        Cancel <i class="fas fa-times-circle right"></i>
+                    </a>
                     <button type="submit" class="btn-large text-shadow orange">
                         Edit Recipe <i class="fas fa-edit right"></i>
                     </button>
