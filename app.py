@@ -52,7 +52,9 @@ def register():
         register = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password"))
+            "favourites": []
         }
+
         mongo.db.users.insert_one(register)
 
         # put the new user into session
@@ -154,6 +156,13 @@ def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
+
+
+@app.route("insert_recipe/<recipe_id>")
+def insert_recipe(recipe_id):
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    mongo.db.users.update_one({"username": username}, {$set {"favourites": []}})
 
 
 if __name__ == "__main__":

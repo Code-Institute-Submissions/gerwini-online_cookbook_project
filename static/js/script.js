@@ -32,3 +32,4 @@ $(document).ready(function() { // Function to add aditional ingredients to a rec
         x--;
     })
 });
+
