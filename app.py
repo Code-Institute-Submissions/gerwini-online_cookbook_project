@@ -25,6 +25,12 @@ def get_recipes():
     return render_template("recipes.html", recipes=recipes)
 
 
+@app.route("/home")
+def home():
+    recipes = list(mongo.db.recipes.find())
+    return render_template("home.html", recipes=recipes)
+
+
 @app.route("/search_recipe")
 def search_recipe():
     recipes = list(mongo.db.recipes.find())
@@ -51,7 +57,7 @@ def register():
 
         register = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
             "favourites": []
         }
 
@@ -158,11 +164,11 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
-@app.route("insert_recipe/<recipe_id>")
-def insert_recipe(recipe_id):
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    mongo.db.users.update_one({"username": username}, {$set {"favourites": []}})
+# @app.route("insert_recipe/<recipe_id>")
+# def insert_recipe(recipe_id):
+#     username = mongo.db.users.find_one(
+#         {"username": session["user"]})["username"]
+#     mongo.db.users.update_one({"username": username}, {$set {"favourites": []}})
 
 
 if __name__ == "__main__":
