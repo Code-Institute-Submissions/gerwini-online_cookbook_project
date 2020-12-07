@@ -169,7 +169,7 @@ def delete_recipe(recipe_id):
 def insert_recipe(recipe_id):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    mongo.db.users.update_one({"username": username}, {'$set': {"favourites": ObjectId(recipe_id)}})
+    mongo.db.users.update_one({"username": username}, {'$push': {"favourites": ObjectId(recipe_id)}})
     return redirect(url_for("search_recipe"))
 
 
