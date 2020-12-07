@@ -182,6 +182,11 @@ def insert_recipe(recipe_id):
     return redirect(url_for("search_recipe"))
 
 
+@app.route("/check_favourites/<recipe_id>")
+def check_favourites(recipe_id):
+    mongo.db.users({"favourites": [ObjectId(recipe_id)]})
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
