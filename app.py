@@ -20,24 +20,28 @@ mongo = PyMongo(app)
 
 @app.route("/")
 @app.route("/get_recipes")
+# gets a list of all recipes and lists them to the user
 def get_recipes():
     recipes = list(mongo.db.recipes.find())
     return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/home")
+# Takes the user to the home screen
 def home():
     recipes = list(mongo.db.recipes.find())
     return render_template("home.html", recipes=recipes)
 
 
 @app.route("/search_recipe")
+# allows the user to search for recipes in the database
 def search_recipe():
     recipes = list(mongo.db.recipes.find())
     return render_template("search_recipe.html", recipes=recipes)
 
 
 @app.route("/search", methods=["GET", "POST"])
+# the search function that searched the database for recipes matching user input
 def search():
     query = request.form.get("query")
     recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
@@ -45,6 +49,7 @@ def search():
 
 
 @app.route("/register", methods=["GET", "POST"])
+# allows the user to make an account for their cook book
 def register():
     if request.method == "POST":
         # check if user is in database
@@ -55,7 +60,7 @@ def register():
             flash("Username already exists")
             return redirect(url_for("register"))
 
-        register = {
+        register = {  # registers user account and creates a favourites array
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "favourites": []
@@ -119,6 +124,7 @@ def logout():
 
 
 @app.route("/add_recipe", methods=["GET", "POST"])
+# allows users to create their own recipes
 def add_recipe():
     if request.method == "POST":
         recipe = {
@@ -139,6 +145,7 @@ def add_recipe():
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+# allows users to edit recipes to their liking
 def edit_recipe(recipe_id):
     if request.method == "POST":
         submit = {
@@ -159,6 +166,7 @@ def edit_recipe(recipe_id):
 
 
 @app.route("/delete_recipe/<recipe_id>")
+# allows users to delete recipes
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
@@ -166,12 +174,12 @@ def delete_recipe(recipe_id):
 
 
 @app.route("/insert_recipe/<recipe_id>")
+# lets users add recipes created by others to their own list
 def insert_recipe(recipe_id):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     mongo.db.users.update_one({"username": username}, {'$push': {"favourites": ObjectId(recipe_id)}})
     return redirect(url_for("search_recipe"))
-
 
 
 if __name__ == "__main__":

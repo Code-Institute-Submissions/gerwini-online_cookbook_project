@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="row">
-        <div class="col s12 center-align">
-            <h1>Welcome to the online cook book!</h1>
-            <h4>Here you can create your own list of recipes that you like 
-            simply <a href="{{ url_for('login') }}" class="orange-text">Login</a> or <a href="{{ url_for('register') }}" class="orange-text">Register</a> and then create your own recipes or 
-            add existing recipes in the online cook book to your own!</h4>
+    {% if session.user %}
+        <div class="row">
+            <div class="col s12 center-align">
+                <h1>Welcome to the online cook book!</h1>
+                <h4>Here you can create your own list of recipes that you like, 
+                go to <a href="{{ url_for('search_recipe') }}" class="orange-text">Search</a> to look through all recipes made by users
+                or <a href="{{ url_for('profile', username=session['user']) }}" class="orange-text">Profile</a> to view your own list of recipes and favourites!</h4>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="row">
+            <div class="col s12 center-align">
+                <h1>Welcome to the online cook book!</h1>
+                <h4>Here you can create your own list of recipes that you like 
+                simply <a href="{{ url_for('login') }}" class="orange-text">Login</a> or <a href="{{ url_for('register') }}" class="orange-text">Register</a> and then create your own recipes or 
+                add existing recipes in the online cook book to your own!</h4>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}
