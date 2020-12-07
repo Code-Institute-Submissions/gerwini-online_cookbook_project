@@ -104,7 +104,8 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        recipes = list(mongo.db.recipes.find())
+        return render_template("profile.html", username=username, recipes=recipes)
 
     return redirect(url_for("login"))
 
@@ -164,11 +165,13 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
-# @app.route("insert_recipe/<recipe_id>")
-# def insert_recipe(recipe_id):
-#     username = mongo.db.users.find_one(
-#         {"username": session["user"]})["username"]
-#     mongo.db.users.update_one({"username": username}, {$set {"favourites": []}})
+@app.route("/insert_recipe/<recipe_id>")
+def insert_recipe(recipe_id):
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    mongo.db.users.update_one({"username": username}, {'$set': {"favourites": ObjectId(recipe_id)}})
+    return redirect(url_for("search_recipe"))
+
 
 
 if __name__ == "__main__":

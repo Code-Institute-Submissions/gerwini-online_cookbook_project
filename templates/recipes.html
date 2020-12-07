@@ -18,9 +18,9 @@
             </div>
         </form>
     </div>
-
+<!-- mongo.db.users({"favourites": ObjectId(recipe_id)}) -->
     {% for recipe in recipes %}
-        {% if session.user|lower == recipe.created_by|lower %}
+        {% if session.user|lower == recipe.created_by|lower%}
             <ul class="collapsible">
                 <li>
                     <div class="collapsible-header">

@@ -7,12 +7,56 @@
                 <h3 class="center-align yellow-text text-darken-4">
                     {{ username }}'s Profile
                 </h3>
-                <h5>Recipes created:</h5>
-                <h5>Recipes added:</h5>
-                <h5>Favorite type of meal:</h5>
-                <h5>Favorite type of cuisine:</h5>
+                <h6>Recipes created:</h6>
+                <h6>Recipes added:</h6>
+                <h6>Favorite type of meal:</h6>
+                <h6>Favorite type of cuisine:</h6>
             </div>
         </div>
     </div>
+
+    <div class="row card-panel grey lighten-5">
+        <form action="{{ url_for('search') }}" method="post" class="col s12">
+            <div class="row valign-wrapper center-align">
+                <div class="input-field col s12 m8">
+                    <i class="fas fa-search prefix orange-text text-darken-4"></i>
+                    <input type="text" name="query" id="query" minlength="3" class="validate" required>
+                    <label for="query">Browse</label>
+                </div>
+                <div class="col s12 m4">
+                    <a href="{{ url_for('get_recipes') }}" class="red btn text-shadow">Reset</a>
+                    <button type="submit" class="orange darken-1 btn text-shadow">
+                        <i class="fas fa-search left"></i> Browse
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% for recipe in recipes %}
+        {% if session.user|lower == recipe.created_by|lower %}
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        <div class="col s3">
+                            <i class="fas fa-caret-down"></i>
+                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red accent-4">Delete</a>
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small orange lighten-2">Edit</a>
+                        </div>
+                        <div class="col s9">
+                            <strong>{{ recipe.recipe_name }}</strong> :  {{ recipe.meal_type }}
+                        </div>
+                    </div>
+                    <div class="collapsible-body">
+                        <strong>Type of cuisine: </strong>{{ recipe.cuisine }}
+                        <p><strong>Ingredients: </strong>{{ recipe.ingredients }}</p>
+                        <p><strong>Required Tools: </strong>{{ recipe.required_tools }}</p>
+                        <p><strong>Preparation steps: </strong>{{ recipe.preparation_steps }}</p>
+                        <p><em>by: {{ recipe.created_by }}</em></p>
+                    </div>
+                </li>
+            </ul>
+        {% endif %}
+    {% endfor %}
 
 {% endblock %}
