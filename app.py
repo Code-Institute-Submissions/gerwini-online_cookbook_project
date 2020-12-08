@@ -109,7 +109,7 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        recipes = list(mongo.db.recipes.find())
+        recipes = list(mongo.db.recipes.find())  #, list(mongo.db.users.find())
         return render_template("profile.html", username=username, recipes=recipes)
 
     return redirect(url_for("login"))
@@ -184,6 +184,8 @@ def insert_recipe(recipe_id):
 
 @app.route("/check_favourites/<recipe_id>")
 def check_favourites(recipe_id):
+    query = request.form.get("query")
+    recipes = list(mongo.db.users.find({"$text": {"$search": query}}))
     mongo.db.users({"favourites": [ObjectId(recipe_id)]})
 
 
