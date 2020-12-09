@@ -111,12 +111,16 @@ def profile(username):
     favourites = mongo.db.users.find_one(
         {"username": session["user"]})["favourites"]
 
-    print(favourites)
+    favourite_recipes = []
+
+    for favourite in favourites:
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
+        favourite_recipes.append(recipe)
 
     print(username)
     if session["user"]:
         recipes = list(mongo.db.recipes.find())
-        return render_template("profile.html", username=username, recipes=recipes,)
+        return render_template("profile.html", username=username, recipes=recipes, favourite_recipes=favourite_recipes)
 
     return redirect(url_for("login"))
 
