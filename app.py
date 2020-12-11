@@ -119,7 +119,7 @@ def profile(username):
 
     print(username)
     if session["user"]:
-        recipes = list(mongo.db.recipes.find())
+        recipes = list(mongo.db.recipes.find({'created_by': session['user']}))
         return render_template("profile.html", username=username, recipes=recipes, favourite_recipes=favourite_recipes)
 
     return redirect(url_for("login"))
@@ -179,6 +179,7 @@ def edit_recipe(recipe_id):
 # allows users to delete recipes
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    mongo.db.users.favourites.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
 
