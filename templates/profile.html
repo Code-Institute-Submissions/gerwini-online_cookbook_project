@@ -30,7 +30,7 @@
     </div>
 
     {% for recipe in recipes %}
-        {% if session.user|lower == recipe.created_by|lower %}
+        {% if session.user|lower == recipe.created_by|lower or for favourite in favourite_recipes %}
             <ul class="collapsible">
                 <li>
                     <div class="collapsible-header">

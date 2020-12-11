@@ -35,3 +35,43 @@ that can be browsed through with ease to obtain whatever youre looking for!
     * Cuisine type: Allows search through types of cuisine like italian, french, etc.
 * Search and add Recipes created by others by clicking the search navigation item
 and the corresponding Add button
+
+
+## Technologies
+
+### JQuery
+* The project uses JQuery to simplify DOM manipulation
+### Jinja
+* The project includes Jinja to create HTML markup formates that are used with Python
+### Materialize
+* The project uses Materialize to have a user friendly and good looking styling to the site
+
+
+## Testing
+
+### Search button
+* Click on the search button in the navbar
+* type in what type of meal, type of cuisine or the recipe name
+* click the search button to view the amount of recipes in the book
+
+### Register and Log in
+* register an account by inputting a username and password
+* click the login button to log in with your account
+* Look at your personalized profile with your recipes
+* click the logout button to log out
+
+### Create a recipe 
+* Click on "New Recipe" in the navbar
+* Pick the mealtype
+* Input the name of the Recipe
+* input the type of cuisine it is
+* list the ingredients used for the recipe
+* Add the tools that are required to make this recipe
+* list the preparation steps to make the recipe
+* click add recipe to add the recipe to your own cook book!
+
+
+## Credits
+
+## Acknowledgements
+I recieved inspiration for this project and my site from the course lessons "Task manager" 
