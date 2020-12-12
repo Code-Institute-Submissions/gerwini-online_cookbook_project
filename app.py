@@ -41,11 +41,11 @@ def search_recipe():
 
 
 @app.route("/search", methods=["GET", "POST"])
-# the search function that searched the database for recipes matching user input
+# the search function that searched the database for recipes matching input
 def search():
     query = request.form.get("query")
     recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("recipes.html", recipes=recipes)
+    return render_template("recipes.html", recipes=recipes,)
 
 
 @app.route("/register", methods=["GET", "POST"])
