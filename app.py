@@ -23,7 +23,7 @@ mongo = PyMongo(app)
 # gets a list of all recipes and lists them to the user
 def get_recipes():
     recipes = list(mongo.db.recipes.find())
-    return render_template("recipes.html", recipes=recipes)
+    return render_template("home.html", recipes=recipes)
 
 
 @app.route("/home")
@@ -37,6 +37,14 @@ def home():
 # allows the user to search for recipes in the database
 def search_recipe():
     recipes = list(mongo.db.recipes.find())
+
+    favourites = mongo.db.users.find_one(
+        {"username": session["user"]})["favourites"]
+
+    for favourite in favourites:
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
+        recipes.remove(recipe)
+
     return render_template("search_recipe.html", recipes=recipes)
 
 
@@ -45,6 +53,14 @@ def search_recipe():
 def search():
     query = request.form.get("query")
     recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+
+    favourites = mongo.db.users.find_one(
+        {"username": session["user"]})["favourites"]
+
+    for favourite in favourites:
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
+        recipes.remove(recipe)
+
     return render_template("recipes.html", recipes=recipes,)
 
 
