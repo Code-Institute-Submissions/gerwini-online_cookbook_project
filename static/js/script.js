@@ -33,7 +33,7 @@ $(document).ready(function(){
   });
 
 $(document).ready(function() { // Function to add aditional ingredients to a recipe
-    var max_fields = 10;
+    var max_fields = 15;
     var wrapper = $(".ingredient_list");
     var add_button = $(".add_ingredient");
 

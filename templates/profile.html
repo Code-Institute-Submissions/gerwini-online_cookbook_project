@@ -11,24 +11,6 @@
         </div>
     </div>
 
-    <div class="row card-panel orange lighten-4">
-        <form action="{{ url_for('search') }}" method="post" class="col s12">
-            <div class="row valign-wrapper center-align">
-                <div class="input-field col s12 m8">
-                    <i class="fas fa-search prefix orange-text text-darken-4"></i>
-                    <input type="text" name="query" id="query" minlength="3" class="validate" required>
-                    <label for="query">Browse</label>
-                </div>
-                <div class="col s12 m4">
-                    <a href="{{ url_for('get_recipes') }}" class="red btn text-shadow">Reset</a>
-                    <button type="submit" class="orange darken-1 btn text-shadow">
-                        <i class="fas fa-search left"></i> Browse
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-
     <h2>Recipe List</h2>
     {% for recipe in recipes %}
             <ul class="collapsible">
