@@ -29,8 +29,7 @@ def get_recipes():
 @app.route("/home")
 # Takes the user to the home screen
 def home():
-    recipes = list(mongo.db.recipes.find())
-    return render_template("home.html", recipes=recipes)
+    return render_template("home.html")
 
 
 @app.route("/search_recipe")
@@ -208,8 +207,18 @@ def insert_recipe(recipe_id):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     mongo.db.users.update_one({"username": username}, {'$push': {"favourites": ObjectId(recipe_id)}})
+    flash("Recipe Successfully Added to Profile!")
     return redirect(url_for("search_recipe"))
 
+
+@app.route("/remove_recipe/<recipe_id>")
+# lets users add recipes created by others to their own list
+def remove_recipe(recipe_id):
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    mongo.db.users.update_one({"username": username}, {'$pull': {"favourites": ObjectId(recipe_id)}})
+    flash("Recipe Successfully Removed!")
+    return redirect(url_for('profile', username=session['user']))
 
 # @app.route("/check_favourites/<recipe_id>")
 # def check_favourites(recipe_id):
