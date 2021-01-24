@@ -1,7 +1,7 @@
 import os
 from flask import (
         Flask, flash, render_template,
-        redirect, request, session, url_for)
+        redirect, request, session, url_for,)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -132,10 +132,11 @@ def profile(username):
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
         favourite_recipes.append(recipe)
 
-    print(username)
     if session["user"]:
         recipes = list(mongo.db.recipes.find({'created_by': session['user']}))
-        return render_template("profile.html", username=username, recipes=recipes, favourite_recipes=favourite_recipes)
+        return render_template("profile.html", username=username,
+                               recipes=recipes,
+                               favourite_recipes=favourite_recipes)
 
     return redirect(url_for("login"))
 
@@ -151,80 +152,94 @@ def logout():
 @app.route("/add_recipe", methods=["GET", "POST"])
 # allows users to create their own recipes
 def add_recipe():
-    if request.method == "POST":
-        recipe = {
-            "meal_type": request.form.get("meal_type"),
-            "recipe_name": request.form.get("recipe_name"),
-            "cuisine": request.form.get("cuisine"),
-            "ingredients": request.form.getlist("ingredients"),
-            "required_tools": request.form.get("required_tools"),
-            "preparation_steps": request.form.get("preparation_steps"),
-            "created_by": session["user"]
-        }
-        mongo.db.recipes.insert_one(recipe)
-        flash("Recipe successfully Added")
-        return redirect(url_for("get_recipes"))
+    if session["user"]:
+        if request.method == "POST":
+            recipe = {
+                "meal_type": request.form.get("meal_type"),
+                "recipe_name": request.form.get("recipe_name"),
+                "cuisine": request.form.get("cuisine"),
+                "ingredients": request.form.getlist("ingredients"),
+                "required_tools": request.form.get("required_tools"),
+                "preparation_steps": request.form.get("preparation_steps"),
+                "created_by": session["user"]
+            }
+            mongo.db.recipes.insert_one(recipe)
+            flash("Recipe successfully Added")
+            return redirect(url_for("get_recipes"))
 
-    meals = mongo.db.meals.find().sort("meal_type", 1)
-    return render_template("add_recipe.html", meals=meals)
+        meals = mongo.db.meals.find().sort("meal_type", 1)
+        return render_template("add_recipe.html", meals=meals)
+
+    return redirect(url_for("login"))
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 # allows users to edit recipes to their liking
 def edit_recipe(recipe_id):
-    if request.method == "POST":
-        submit = {
-            "meal_type": request.form.get("meal_type"),
-            "recipe_name": request.form.get("recipe_name"),
-            "cuisine": request.form.get("cuisine"),
-            "ingredients": request.form.getlist("ingredients"),
-            "required_tools": request.form.get("required_tools"),
-            "preparation_steps": request.form.get("preparation_steps"),
-            "created_by": session["user"]
-        }
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
-        flash("Recipe successfully Updated")
+    if session["user"]:
+        if request.method == "POST":
+            submit = {
+                "meal_type": request.form.get("meal_type"),
+                "recipe_name": request.form.get("recipe_name"),
+                "cuisine": request.form.get("cuisine"),
+                "ingredients": request.form.getlist("ingredients"),
+                "required_tools": request.form.get("required_tools"),
+                "preparation_steps": request.form.get("preparation_steps"),
+                "created_by": session["user"]
+            }
+            mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
+            flash("Recipe successfully Updated")
 
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    meals = mongo.db.meals.find().sort("meal_type", 1)
-    return render_template("edit_recipe.html", recipe=recipe, meals=meals)
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        meals = mongo.db.meals.find().sort("meal_type", 1)
+        return render_template("edit_recipe.html", recipe=recipe, meals=meals)
+
+    return redirect(url_for("login"))
 
 
 @app.route("/delete_recipe/<recipe_id>")
 # allows users to delete recipes
 def delete_recipe(recipe_id):
-    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    mongo.db.users.update_one({"username": username}, {'$pull': {"favourites": ObjectId(recipe_id)}})
-    flash("Recipe Successfully Deleted")
-    return redirect(url_for("get_recipes"))
+    if session["user"]:
+        mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        mongo.db.users.update_one({"username": username},
+                                {'$pull': {"favourites": ObjectId(recipe_id)}})
+        flash("Recipe Successfully Deleted")
+        return redirect(url_for("get_recipes"))
+
+    return redirect(url_for("login"))
 
 
 @app.route("/insert_recipe/<recipe_id>")
 # lets users add recipes created by others to their own list
 def insert_recipe(recipe_id):
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    mongo.db.users.update_one({"username": username}, {'$push': {"favourites": ObjectId(recipe_id)}})
-    flash("Recipe Successfully Added to Profile!")
-    return redirect(url_for("search_recipe"))
+    if session["user"]:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        mongo.db.users.update_one({"username": username},
+                                  {'$push': {"favourites":
+                                   ObjectId(recipe_id)}})
+        flash("Recipe Successfully Added to Profile!")
+        return redirect(url_for("search_recipe"))
+
+    return redirect(url_for("login"))
 
 
 @app.route("/remove_recipe/<recipe_id>")
 # lets users add recipes created by others to their own list
 def remove_recipe(recipe_id):
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    mongo.db.users.update_one({"username": username}, {'$pull': {"favourites": ObjectId(recipe_id)}})
-    flash("Recipe Successfully Removed!")
-    return redirect(url_for('profile', username=session['user']))
+    if session["user"]:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        mongo.db.users.update_one({"username": username},
+                                  {'$pull': {"favourites":
+                                   ObjectId(recipe_id)}})
+        flash("Recipe Successfully Removed!")
+        return redirect(url_for('profile', username=session['user']))
 
-# @app.route("/check_favourites/<recipe_id>")
-# def check_favourites(recipe_id):
-#     query = request.form.get("query")
-#     recipes = list(mongo.db.users.find({"$text": {"$search": query}}))
-#     mongo.db.users({"favourites": [ObjectId(recipe_id)]})
+    return redirect(url_for("login"))
 
 
 if __name__ == "__main__":

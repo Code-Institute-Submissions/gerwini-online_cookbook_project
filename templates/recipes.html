@@ -18,7 +18,7 @@
             </div>
         </form>
     </div>
-<!-- mongo.db.users({"favourites": ObjectId(recipe_id)}) -->
+
     {% for recipe in recipes %}
         {% if session.user|lower == recipe.created_by|lower%}
         {% else %}
