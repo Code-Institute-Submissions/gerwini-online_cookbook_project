@@ -48,14 +48,9 @@
             </div>
             <div class="ingredient_list">
                 <a class="add_ingredient btn-floating btn-small waves-effect waves-light red">+</a>
-                <div class="input-field">
-                    <input type="text" name="ingredients" value="{{ recipe.ingredients }}">
-                    <label for="ingredients">Ingredient</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" name="ingredients" value="{{ recipe.ingredients }}">
-                    <label for="ingredients">Ingredient</label>
-                </div>
+                {% for ingredient in recipe.ingredients %}
+                    <input type="text" name="ingredients" value="{{ ingredient }}">
+                {% endfor %}
             </div>
             <!-- Required tools -->
             <div class="row">
