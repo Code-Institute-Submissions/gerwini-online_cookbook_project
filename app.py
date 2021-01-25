@@ -215,31 +215,25 @@ def delete_recipe(recipe_id):
 @app.route("/insert_recipe/<recipe_id>")
 # lets users add recipes created by others to their own list
 def insert_recipe(recipe_id):
-    if session["user"]:
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
-        mongo.db.users.update_one({"username": username},
-                                  {'$push': {"favourites":
-                                   ObjectId(recipe_id)}})
-        flash("Recipe Successfully Added to Profile!")
-        return redirect(url_for("search_recipe"))
-
-    return redirect(url_for("login"))
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    mongo.db.users.update_one({"username": username},
+                              {'$push': {"favourites":
+                               ObjectId(recipe_id)}})
+    flash("Recipe Successfully Added to Profile!")
+    return redirect(url_for("search_recipe"))
 
 
 @app.route("/remove_recipe/<recipe_id>")
 # lets users add recipes created by others to their own list
 def remove_recipe(recipe_id):
-    if session["user"]:
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
-        mongo.db.users.update_one({"username": username},
-                                  {'$pull': {"favourites":
-                                   ObjectId(recipe_id)}})
-        flash("Recipe Successfully Removed!")
-        return redirect(url_for('profile', username=session['user']))
-
-    return redirect(url_for("login"))
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    mongo.db.users.update_one({"username": username},
+                              {'$pull': {"favourites":
+                               ObjectId(recipe_id)}})
+    flash("Recipe Successfully Removed!")
+    return redirect(url_for('profile', username=session['user']))
 
 
 if __name__ == "__main__":
