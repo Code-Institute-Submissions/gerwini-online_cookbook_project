@@ -19,13 +19,6 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_recipes")
-# gets a list of all recipes and lists them to the user
-def get_recipes():
-    recipes = list(mongo.db.recipes.find())
-    return render_template("home.html", recipes=recipes)
-
-
 @app.route("/home")
 # Takes the user to the home screen
 def home():
