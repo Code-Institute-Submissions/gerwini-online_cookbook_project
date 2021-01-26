@@ -219,7 +219,7 @@ def insert_recipe(recipe_id):
         {"username": session["user"]})["username"]
     mongo.db.users.update_one({"username": username},
                               {'$push': {"favourites":
-                               ObjectId(recipe_id)}})
+                               recipe_id}})
     flash("Recipe Successfully Added to Profile!")
     return redirect(url_for("search_recipe"))
 
@@ -231,7 +231,7 @@ def remove_recipe(recipe_id):
         {"username": session["user"]})["username"]
     mongo.db.users.update_one({"username": username},
                               {'$pull': {"favourites":
-                               ObjectId(recipe_id)}})
+                               recipe_id}})
     flash("Recipe Successfully Removed!")
     return redirect(url_for('profile', username=session['user']))
 

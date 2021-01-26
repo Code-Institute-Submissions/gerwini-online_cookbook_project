@@ -37,13 +37,12 @@
     {% endfor %}
 
     {% for favourite in favourite_recipes %}
-    {% for recipe in recipes %}
             <ul class="collapsible">
                 <li>
                     <div class="collapsible-header orange lighten-4">
                         <div class="col s3">
                             <i class="fas fa-caret-down"></i>
-                            <a href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}" class="btn-small orange lighten-2">Remove</a>
+                            <a href="{{ url_for('remove_recipe', recipe_id=favourite._id) }}" class="btn-small orange lighten-2">Remove</a>
                         </div>
                         <div class="col s9">
                             <strong>{{ favourite.recipe_name }}</strong> :  {{ favourite.meal_type }}
@@ -58,6 +57,5 @@
                     </div>
                 </li>
             </ul>
-    {% endfor %}
     {% endfor %}
 {% endblock %}
