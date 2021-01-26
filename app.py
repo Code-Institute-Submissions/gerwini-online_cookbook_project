@@ -60,7 +60,7 @@ def search():
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
         recipes.remove(recipe)
 
-    return render_template("recipes.html", recipes=recipes,)
+    return render_template("search_recipe.html", recipes=recipes,)
 
 
 @app.route("/register", methods=["GET", "POST"])
