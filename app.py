@@ -58,7 +58,8 @@ def search():
 
     for favourite in favourites:
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(favourite)})
-        recipes.remove(recipe)
+        if recipe in recipes:
+            recipes.remove(recipe)
 
     return render_template("search_recipe.html", recipes=recipes,)
 
