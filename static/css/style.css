@@ -28,10 +28,24 @@
     border: 1px;
 }
 
-.mealbackground {
-    background-image: url('../pictures/breakfeast.jpg');
-    background-repeat: round;
-    width: 100%;
+.breakfeast {
+    background-image: url('../css/pictures/breakfeast.jpg');
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 100%;
+}
+
+.lunch {
+    background-image: url('../css/pictures/lunch.jpg');
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 100%;
+}
+
+.dinner {
+    background-image: url('../css/pictures/dinner.jpeg');
+    background-repeat: no-repeat;
+    width: 40%;
     height: 100%;
 }
 

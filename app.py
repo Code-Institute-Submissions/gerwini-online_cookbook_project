@@ -159,7 +159,7 @@ def add_recipe():
             }
             mongo.db.recipes.insert_one(recipe)
             flash("Recipe successfully Added")
-            return redirect(url_for("get_recipes"))
+            return redirect(url_for('profile', username=session['user']))
 
         meals = mongo.db.meals.find().sort("meal_type", 1)
         return render_template("add_recipe.html", meals=meals)
@@ -201,7 +201,7 @@ def delete_recipe(recipe_id):
         mongo.db.users.update_one({"username": username},
                                 {'$pull': {"favourites": ObjectId(recipe_id)}})
         flash("Recipe Successfully Deleted")
-        return redirect(url_for("get_recipes"))
+        return redirect(url_for('profile', username=session['user']))
 
     return redirect(url_for("login"))
 
