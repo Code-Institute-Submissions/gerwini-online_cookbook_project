@@ -199,7 +199,8 @@ def delete_recipe(recipe_id):
         username = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
         mongo.db.users.update_one({"username": username},
-                                {'$pull': {"favourites": ObjectId(recipe_id)}})
+                                  {'$pull': {"favourites":
+                                   ObjectId(recipe_id)}})
         flash("Recipe Successfully Deleted")
         return redirect(url_for('profile', username=session['user']))
 

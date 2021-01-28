@@ -7,6 +7,10 @@
                 <h3 class="center-align yellow-text text-darken-4">
                     {{ username }}'s Profile
                 </h3>
+                <h5 class="center-align">
+                    Welcome to your Profile! 
+                    Here you can Edit and Delete and View your own recipes as well as remove recipes youve added from other users!
+                </h5>
             </div>
         </div>
     </div>
@@ -15,7 +19,7 @@
     {% for recipe in recipes %}
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header breakfeast lunch dinner">
+                    <div class="collapsible-header mealbackground">
                         <div class="col s3">
                             <i class="fas fa-caret-down"></i>
                             <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red accent-4">Delete</a>
@@ -39,7 +43,7 @@
     {% for favourite in favourite_recipes %}
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header mealbackground">
+                    <div class="collapsible-header dinner">
                         <div class="col s3">
                             <i class="fas fa-caret-down"></i>
                             <a href="{{ url_for('remove_recipe', recipe_id=favourite._id) }}" class="btn-small orange lighten-2">Remove</a>
@@ -59,26 +63,3 @@
             </ul>
     {% endfor %}
 {% endblock %}
-
-<script type="text/javascript">
-    breakfeast = 
-    function mealbackground() {
-        if (recipe.meal_type == breakfast) {
-            breakfeast.style.display = 'block';
-            lunch.style.display = 'none';
-            dinner.style.display = 'none';
-        }
-
-        if (recipe.meal_type == lunch) {
-            breakfeast.style.display = 'none';
-            lunch.style.display = 'block';
-            dinner.style.display = 'none';
-        }
-
-        if (recipe.meal_type == dinner) {
-            breakfeast.style.display = 'none';
-            lunch.style.display = 'none';
-            dinner.style.display = 'block';
-        }
-    }
-</script>
