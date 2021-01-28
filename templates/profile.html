@@ -19,7 +19,7 @@
     {% for recipe in recipes %}
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header mealbackground">
+                    <div class="collapsible-header {{ recipe.meal_type }}">
                         <div class="col s3">
                             <i class="fas fa-caret-down"></i>
                             <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red accent-4">Delete</a>
