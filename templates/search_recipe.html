@@ -24,7 +24,7 @@
      {% else %}
         <ul class="collapsible">
             <li>
-                <div class="collapsible-header orange lighten-4">
+                <div class="collapsible-header {{ recipe.meal_type }}">
                     <div class="col s3">
                         <i class="fas fa-caret-down"></i>
                         <a href="{{ url_for('insert_recipe', recipe_id=recipe._id) }}" class="btn-small orange lighten-2">Add</a>

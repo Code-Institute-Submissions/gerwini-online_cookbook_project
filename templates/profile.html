@@ -43,7 +43,7 @@
     {% for favourite in favourite_recipes %}
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header dinner">
+                    <div class="collapsible-header {{ favourite.meal_type }}">
                         <div class="col s3">
                             <i class="fas fa-caret-down"></i>
                             <a href="{{ url_for('remove_recipe', recipe_id=favourite._id) }}" class="btn-small orange lighten-2">Remove</a>
