@@ -71,7 +71,29 @@ and the corresponding Add button
 * click add recipe to add the recipe to your own cook book!
 
 
+## Deployment
+
+### Requirements
+I made this project using Heroku, MongoDB and Github accounts.
+The requirements this Project needs and uses are:
+* click==7.1.2
+* dnspython==2.0.0
+* Flask==1.1.2
+* Flask-PyMongo==2.3.0
+* itsdangerous==1.1.0
+* pymongo==3.11.1
+* Werkzeug==1.0.1
+
+#### Environment variables
+Some of config vars needed on heroku are:
+* IP
+* MONGO_DBNAME
+* MONGO_URI
+* PORT
+* SECRET_KEY
+
+
 ## Credits
 
-## Acknowledgements
+### Acknowledgements
 I recieved inspiration for this project and my site from the course lessons "Task manager" 
