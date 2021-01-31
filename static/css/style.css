@@ -36,24 +36,52 @@
 
 .breakfast {
     background-image: url('../css/pictures/breakfeast.png');
-    background-repeat: no-repeat;
-    max-width: 50%;
+    background-repeat: repeat;
+    max-width: 40%;
 }
 
 .lunch {
     background-image: url('../css/pictures/lunch.png');
     background-repeat: no-repeat;
-    max-width: 50%;
+    max-width: 40%;
 }
 
 .dinner {
     background-image: url('../css/pictures/dinner.png');
     background-repeat: no-repeat;
-    max-width: 50%;
+    max-width: 40%;
 }
 
 @media only screen and (max-width: 500px) {
     nav .brand-logo {
         font-size: 1.5rem !important;
     }
+}
+
+@media only screen and (max-width: 1453px) {
+    .breakfast {
+    max-width: 60%;
+}
+
+.lunch {
+    max-width: 60%;
+}
+
+.dinner {
+    max-width: 60%;
+}
+}
+
+@media only screen and (max-width: 790px) {
+    .breakfast {
+    max-width: 100%;
+}
+
+.lunch {
+    max-width: 100%;
+}
+
+.dinner {
+    max-width: 100%;
+}
 }
