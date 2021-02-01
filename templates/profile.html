@@ -15,6 +15,7 @@
         </div>
     </div>
 
+    <!-- List of user created recipes -->
     <h2>Recipe List</h2>
     {% for recipe in recipes %}
             <ul class="collapsible">
@@ -40,6 +41,7 @@
             </ul>
     {% endfor %}
 
+    <!-- List of user favorited recipes, added to the list of user made recipes -->
     {% for favourite in favourite_recipes %}
             <ul class="collapsible">
                 <li>

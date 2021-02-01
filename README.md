@@ -70,11 +70,15 @@ and the corresponding Add button
 * list the preparation steps to make the recipe
 * click add recipe to add the recipe to your own cook book!
 
+The project works with all screen sizes and browsers.
+
 
 ## Deployment
 
 ### Requirements
 I made this project using Heroku, MongoDB and Github accounts.
+There are no seperate git branches used in this project.
+
 The requirements this Project needs and uses are:
 * click==7.1.2
 * dnspython==2.0.0
@@ -85,15 +89,26 @@ The requirements this Project needs and uses are:
 * Werkzeug==1.0.1
 
 #### Environment variables
-Some of config vars needed on heroku are:
+Some of config vars needed on heroku and added to the env.py file are:
 * IP
 * MONGO_DBNAME
 * MONGO_URI
 * PORT
 * SECRET_KEY
 
+#### MongoDB Data
+All the data is stored in MongoDB inside of a cluster
+The database name for it is cooking_book and it has 3 different collections.
+* Users: A collection with all user accounts that lists their username, a hashed password abd their favourite recipes
+* Recipes: A collection listing all relevant data in a recipe with their own ObjectId'search
+    * meal_type, recipe_name, cuisine, ingredients, required_tools, preparation_steps and created_by
+* meals, a lits of the different mealtypes being: breakfast, lunch and dinner
+
 
 ## Credits
 
 ### Acknowledgements
 I recieved inspiration for this project and my site from the course lessons "Task manager" 
+
+### Media
+The pictures used in this project have been taken from google and edited to change their opacity.

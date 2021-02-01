@@ -19,6 +19,7 @@
         </form>
     </div>
 
+    <!-- search display made so that it doesnt display recipes that the user themselves made-->
     {% for recipe in recipes %}
         {% if session.user|lower == recipe.created_by|lower%}
         {% else %}

@@ -220,7 +220,7 @@ def insert_recipe(recipe_id):
 
 
 @app.route("/remove_recipe/<recipe_id>")
-# lets users add recipes created by others to their own list
+# lets users remove recipes created by others from their own list
 def remove_recipe(recipe_id):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -234,4 +234,4 @@ def remove_recipe(recipe_id):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)
